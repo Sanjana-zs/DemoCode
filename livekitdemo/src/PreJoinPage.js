@@ -130,11 +130,11 @@ const PreJoinPage = () => {
   return (
     <div className="prejoin">
       <main>
-        <h2>LiveKit Video</h2>
+        <h2>Bitfrost</h2>
         <hr />
         <div className="entrySection">
           <div>
-            <div className="label">LiveKit URL</div>
+            <div className="label"> URL</div>
             <div>
               <input
                 type="text"
@@ -216,15 +216,7 @@ const PreJoinPage = () => {
           </div>
         </div>
       </main>
-      <footer>
-        This page is built with{" "}
-        <a href="https://github.com/livekit/livekit-react">LiveKit React</a>
-        &nbsp; (
-        <a href="https://github.com/livekit/livekit-react/blob/master/example/src/PreJoinPage.tsx">
-          source
-        </a>
-        )
-      </footer>
+      
     </div>
   );
 };
