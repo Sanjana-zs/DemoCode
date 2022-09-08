@@ -109,8 +109,10 @@ const RoomPage = () => {
                     }}
                   >
                     <FontAwesomeIcon height={32} icon={faThLarge} />
+                    
                   </button>
                   <button
+                  
                     className="iconButton"
                     disabled={displayOptions.stageLayout === "speaker"}
                     onClick={() => {
@@ -139,6 +141,7 @@ const RoomPage = () => {
                   onParticipantDisconnected
                 );
                 room.on(RoomEvent.DataReceived, handleData);
+                room.on(RoomEvent.ConnectionQualityChanged, () => console.log("Error"))
                 updateParticipantSize();
               }}
               roomOptions={{
