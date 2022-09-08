@@ -38,12 +38,12 @@ const RoomPage = () => {
     navigate("/");
   };
 
-  const updateParticipantSize = () => {
+  const updateParticipantSize = (currentRoom) => {
     setNumParticipants(currentRoom.participants.size + 1);
   };
 
-  const onParticipantDisconnected = () => {
-    updateParticipantSize();
+  const onParticipantDisconnected = (currentRoom) => {
+    updateParticipantSize(currentRoom);
 
     /* Special rule for recorder */
     if (
@@ -135,14 +135,14 @@ const RoomPage = () => {
                 setLogLevel("debug");
                 onConnected(room, query);
                 setCurrentRoom(room);
-                room.on(RoomEvent.ParticipantConnected, updateParticipantSize);
+                room.on(RoomEvent.ParticipantConnected, () => updateParticipantSize(room));
                 room.on(
                   RoomEvent.ParticipantDisconnected,
-                  onParticipantDisconnected
+                  () => onParticipantDisconnected(room)
                 );
                 room.on(RoomEvent.DataReceived, handleData);
-                room.on(RoomEvent.ConnectionQualityChanged, () => console.log("Error"))
-                updateParticipantSize();
+                room.on(RoomEvent.ConnectionQualityChanged, () => updateParticipantSize(room))
+                updateParticipantSize(room);
               }}
               roomOptions={{
                 adaptiveStream: isSet(query, "adaptiveStream"),

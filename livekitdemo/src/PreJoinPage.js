@@ -9,6 +9,7 @@ import { VideoRenderer } from "@livekit/react-core";
 import { useEffect, useState } from "react";
 import { AspectRatio } from "react-aspect-ratio";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const PreJoinPage = () => {
   // state to pass onto room
@@ -93,31 +94,36 @@ const PreJoinPage = () => {
       return;
     }
 
-    const params = {
-      url,
-      token,
-      videoEnabled: videoEnabled ? "1" : "0",
-      audioEnabled: audioEnabled ? "1" : "0",
-      simulcast: simulcast ? "1" : "0",
-      dynacast: dynacast ? "1" : "0",
-      adaptiveStream: adaptiveStream ? "1" : "0",
-    };
-    if (audioDevice) {
-      params.audioDeviceId = audioDevice.deviceId;
-    }
-    if (videoDevice) {
-      params.videoDeviceId = videoDevice.deviceId;
-    } else if (videoTrack) {
-      // pass along current device id to ensure camera device match
-      const deviceId = await videoTrack.getDeviceId();
-      if (deviceId) {
-        params.videoDeviceId = deviceId;
+    axios.post('http://localhost:5000', {
+       roomName: token.split('/').pop(),
+       participantName: url
+    }).then(res => {
+      const params = {
+        url: 'ws://localhost:7880',
+        token: res.data,
+        videoEnabled: videoEnabled ? "1" : "0",
+        audioEnabled: audioEnabled ? "1" : "0",
+        simulcast: simulcast ? "1" : "0",
+        dynacast: dynacast ? "1" : "0",
+        adaptiveStream: adaptiveStream ? "1" : "0",
+      };
+      if (audioDevice) {
+        params.audioDeviceId = audioDevice.deviceId;
       }
-    }
-    navigate({
-      pathname: "/room",
-      search: "?" + new URLSearchParams(params).toString(),
-    });
+      if (videoDevice) {
+        params.videoDeviceId = videoDevice.deviceId;
+      } else if (videoTrack) {
+        // pass along current device id to ensure camera device match
+        const deviceId = videoTrack.getDeviceId().then(id => id);
+        if (deviceId) {
+          params.videoDeviceId = deviceId;
+        }
+      }
+      navigate({
+        pathname: "/room",
+        search: "?" + new URLSearchParams(params).toString(),
+      });
+    }).catch(console.error);
   };
 
   let videoElement;
