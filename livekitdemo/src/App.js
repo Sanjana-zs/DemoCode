@@ -1,4 +1,4 @@
-import "./App.css";
+import '@livekit/react-components/dist/index.css';
 import PreJoinPage from "./PreJoinPage";
 import RoomPage from "./RoomPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";

@@ -14,9 +14,9 @@ const PreJoinPage = () => {
   // state to pass onto room
   const [url, setUrl] = useState("ws://localhost:7880");
   const [token, setToken] = useState("");
-  const [simulcast, setSimulcast] = useState(true);
-  const [dynacast, setDynacast] = useState(true);
-  const [adaptiveStream, setAdaptiveStream] = useState(true);
+  const [simulcast] = useState(true);
+  const [dynacast] = useState(true);
+  const [adaptiveStream] = useState(true);
   const [videoEnabled, setVideoEnabled] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(true);
   // disable connect button unless validated
@@ -128,13 +128,11 @@ const PreJoinPage = () => {
   }
 
   return (
-    <div className="prejoin">
+    <div className="prejoin bg-[#5C8AFF]  h-screen">
       <main>
-        <h2>LiveKit Video</h2>
-        <hr />
         <div className="entrySection">
           <div>
-            <div className="label">LiveKit URL</div>
+            <div className="label"> Username</div>
             <div>
               <input
                 type="text"
@@ -145,7 +143,7 @@ const PreJoinPage = () => {
             </div>
           </div>
           <div>
-            <div className="label">Token</div>
+            <div className="label">Link</div>
             <div>
               <input
                 type="text"
@@ -156,36 +154,36 @@ const PreJoinPage = () => {
             </div>
           </div>
           <div className="options">
-            <div>
+            {/* <div>
               <input
                 id="simulcast-option"
                 type="checkbox"
                 name="simulcast"
                 checked={simulcast}
-                onChange={(e) => setSimulcast(e.target.checked)}
+                onChange={(e) => setSimulcast(simulcast)}
               />
               <label htmlFor="simulcast-option">Simulcast</label>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <input
                 id="dynacast-option"
                 type="checkbox"
                 name="dynacast"
                 checked={dynacast}
-                onChange={(e) => setDynacast(e.target.checked)}
+                onChange={(e) => setDynacast(dynacast)}
               />
               <label htmlFor="dynacast-option">Dynacast</label>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <input
                 id="adaptivestream-option"
                 type="checkbox"
                 name="adaptiveStream"
                 checked={adaptiveStream}
-                onChange={(e) => setAdaptiveStream(e.target.checked)}
+                onChange={(e) => setAdaptiveStream(adaptiveStream)}
               />
               <label htmlFor="adaptivestream-option">Adaptive Stream</label>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -216,15 +214,7 @@ const PreJoinPage = () => {
           </div>
         </div>
       </main>
-      <footer>
-        This page is built with{" "}
-        <a href="https://github.com/livekit/livekit-react">LiveKit React</a>
-        &nbsp; (
-        <a href="https://github.com/livekit/livekit-react/blob/master/example/src/PreJoinPage.tsx">
-          source
-        </a>
-        )
-      </footer>
+      
     </div>
   );
 };
